@@ -1,0 +1,14 @@
+#Eclipse and maven files
+*.settings
+*.classpath
+*.project
+*.pydevproject
+/bin/
+/test-output
+/target
+/screenshots
+/allure-results
+/.idea
+/.settings
+/Download
+/target/
