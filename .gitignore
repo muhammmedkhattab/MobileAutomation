@@ -1,14 +1,41 @@
-#Eclipse and maven files
-*.settings
-*.classpath
-*.project
-*.pydevproject
+# ── IDE / editor ──────────────────────────────────────────────────────────────
+.settings/
+.classpath
+.project
+.pydevproject
+.idea/
+*.iml
+*.ipr
+*.iws
+
+# ── Build outputs ─────────────────────────────────────────────────────────────
 /bin/
-/test-output
-/target
-/screenshots
-/allure-results
-/.idea
-/.settings
-/Download
 /target/
+
+# ── Test outputs ──────────────────────────────────────────────────────────────
+/test-output/
+/allure-results/
+/allure-report/
+/Screenshots/
+
+# ── App binaries (never commit APKs or IPAs) ──────────────────────────────────
+/Apk/
+/apps/
+*.apk
+*.ipa
+*.app
+*.zip
+
+# ── Environment / secrets ─────────────────────────────────────────────────────
+.env
+.env.*
+*.env
+secrets.properties
+local.properties
+
+# ── OS artefacts ──────────────────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+
+# ── Downloads ─────────────────────────────────────────────────────────────────
+/Download/
