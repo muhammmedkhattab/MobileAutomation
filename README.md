@@ -1,4 +1,4 @@
-# MobileAutomation
+# ATF-Mobile
 
 Java-based mobile UI test automation framework using **Appium**, **TestNG**, and the **Page Object Model**. Covers Android (UiAutomator2) and iOS (XCUITest) in a single Maven project.
 

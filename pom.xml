@@ -5,11 +5,11 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>selenium</groupId>
-  <artifactId>MobileAutomation</artifactId>
+  <artifactId>ATF-Mobile</artifactId>
   <version>1.0.0</version>
   <packaging>jar</packaging>
 
-  <name>MobileAutomation</name>
+  <name>ATF-Mobile</name>
   <description>Appium-based mobile test automation framework (Android + iOS)</description>
 
   <properties>

@@ -54,8 +54,9 @@ jobs:
       - name: Download Sauce Labs Android demo app
         run: |
           mkdir -p apps
-          curl -fsSL -o apps/Android.SauceLabs.Mobile.Sample.app.apk \
-            "https://github.com/saucelabs/my-demo-app-android/releases/latest/download/Android.SauceLabs.Mobile.Sample.app.apk"
+          APK_URL=$(curl -s https://api.github.com/repos/saucelabs/my-demo-app-android/releases/latest \
+            | python3 -c "import json,sys; assets=json.load(sys.stdin)['assets']; print(next(a['browser_download_url'] for a in assets if a['name'].endswith('.apk') and 'androidTest' not in a['name']))")
+          curl -fsSL -o apps/Android.SauceLabs.Mobile.Sample.app.apk "$APK_URL"
 
       - name: Install Appium + UiAutomator2 driver
         run: |
@@ -111,10 +112,13 @@ jobs:
       - name: Download Sauce Labs iOS demo app
         run: |
           mkdir -p apps
-          curl -fsSL -o apps/iOS.SauceLabs.Mobile.Sample.app.zip \
-            "https://github.com/saucelabs/my-demo-app-ios/releases/latest/download/iOS.Simulator.SauceLabs.Mobile.Sample.app.zip"
+          ZIP_URL=$(curl -s https://api.github.com/repos/saucelabs/my-demo-app-ios/releases/latest \
+            | python3 -c "import json,sys; assets=json.load(sys.stdin)['assets']; print(next(a['browser_download_url'] for a in assets if a['name'] == 'SauceLabs-Demo-App.Simulator.zip'))")
+          curl -fsSL -o apps/iOS.SauceLabs.Mobile.Sample.app.zip "$ZIP_URL"
           cd apps && unzip -q iOS.SauceLabs.Mobile.Sample.app.zip
-          ls -la apps/
+          APP=$(find . -name "*.app" -maxdepth 2 -type d | head -1)
+          [ -n "$APP" ] && [ "$APP" != "./iOS.SauceLabs.Mobile.Sample.app" ] && mv "$APP" iOS.SauceLabs.Mobile.Sample.app
+          ls -la
 
       - name: Boot iPhone 14 simulator
         run: |
