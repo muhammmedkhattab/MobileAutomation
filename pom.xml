@@ -1,137 +1,153 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-	<modelVersion>4.0.0</modelVersion>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+                             http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
 
-	<groupId>selenium</groupId>
-	<artifactId>TruDocAndroidApp</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
-	<packaging>jar</packaging>
+  <groupId>selenium</groupId>
+  <artifactId>MobileAutomation</artifactId>
+  <version>1.0.0</version>
+  <packaging>jar</packaging>
 
-	<name>TruDocAndroidApp</name>
-	<url>http://maven.apache.org</url>
+  <name>MobileAutomation</name>
+  <description>Appium-based mobile test automation framework (Android + iOS)</description>
 
-	<properties>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-	</properties>
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <java.version>11</java.version>
+    <appium.version>9.4.0</appium.version>
+    <selenium.version>4.43.0</selenium.version>
+    <testng.version>7.11.0</testng.version>
+    <cucumber.version>7.22.1</cucumber.version>
+    <!-- Default suite — override with -Pandroid / -Pios / -Pregression -->
+    <testNGSuite>src/test/suites/androidTestSuite.xml</testNGSuite>
+  </properties>
 
-	<build>
-		<pluginManagement>
-			<plugins>
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-compiler-plugin</artifactId>
-					<version>3.7.0</version>
-					<configuration>
-						<source>8</source>
-						<target>8</target>
-					</configuration>
-				</plugin>
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-surefire-plugin</artifactId>
-					<version>2.21.0</version>
-					<configuration>
-						<suiteXmlFiles>
-							<suiteXmlFile>${testNGSuite}</suiteXmlFile>
-						</suiteXmlFiles>
-					</configuration>
-				</plugin>
-			</plugins>
-		</pluginManagement>
-	</build>
+  <build>
+    <testResources>
+      <testResource>
+        <directory>src/test/resources</directory>
+      </testResource>
+    </testResources>
 
-	<dependencies>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.15.0</version>
+        <configuration>
+          <source>${java.version}</source>
+          <target>${java.version}</target>
+        </configuration>
+      </plugin>
 
-		<dependency>
-			<groupId>info.cukes</groupId>
-			<artifactId>cucumber-core</artifactId>
-			<version>1.2.5</version>
-		</dependency>
-		<dependency>
-			<groupId>info.cukes</groupId>
-			<artifactId>cucumber-testng</artifactId>
-			<version>1.2.5</version>
-		</dependency>
-		<dependency>
-			<groupId>info.cukes</groupId>
-			<artifactId>gherkin</artifactId>
-			<version>2.12.2</version>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>info.cukes</groupId>
-			<artifactId>cucumber-java</artifactId>
-			<version>1.2.5</version>
-		</dependency>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <version>3.5.5</version>
+        <configuration>
+          <suiteXmlFiles>
+            <suiteXmlFile>${testNGSuite}</suiteXmlFile>
+          </suiteXmlFiles>
+          <!-- Forward CI env vars as JVM system properties so ConfigReader picks them up -->
+          <systemPropertyVariables>
+            <SAUCEDEMO_USERNAME>${env.SAUCEDEMO_USERNAME}</SAUCEDEMO_USERNAME>
+            <SAUCEDEMO_PASSWORD>${env.SAUCEDEMO_PASSWORD}</SAUCEDEMO_PASSWORD>
+            <TRUDOC_PHONE>${env.TRUDOC_PHONE}</TRUDOC_PHONE>
+            <TRUDOC_PASSWORD>${env.TRUDOC_PASSWORD}</TRUDOC_PASSWORD>
+          </systemPropertyVariables>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
 
-		<dependency>
-			<groupId>org.testng</groupId>
-			<artifactId>testng</artifactId>
-			<version>6.14.3</version>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.seleniumhq.selenium</groupId>
-			<artifactId>selenium-java</artifactId>
-			<version>3.12.0</version>
-		</dependency>
+  <dependencies>
+    <!-- ── Appium (Android + iOS) ───────────────────────────────────── -->
+    <dependency>
+      <groupId>io.appium</groupId>
+      <artifactId>java-client</artifactId>
+      <version>${appium.version}</version>
+    </dependency>
 
-		<dependency>
-			<groupId>org.apache.poi</groupId>
-			<artifactId>poi-ooxml</artifactId>
-			<version>3.17</version>
-		</dependency>
-		<dependency>
-			<groupId>com.opencsv</groupId>
-			<artifactId>opencsv</artifactId>
-			<version>4.1</version>
-		</dependency>
-		<dependency>
-			<groupId>com.googlecode.json-simple</groupId>
-			<artifactId>json-simple</artifactId>
-			<version>1.1.1</version>
-		</dependency>
-		<dependency>
-			<groupId>com.github.javafaker</groupId>
-			<artifactId>javafaker</artifactId>
-			<version>0.15</version>
-		</dependency>
-		<!-- https://mvnrepository.com/artifact/io.appium/java-client -->
-		<dependency>
-			<groupId>io.appium</groupId>
-			<artifactId>java-client</artifactId>
-			<version>6.1.0</version>
-		</dependency>
+    <!-- ── Selenium (pinned; Appium 9.x requires Selenium 4) ────────── -->
+    <dependency>
+      <groupId>org.seleniumhq.selenium</groupId>
+      <artifactId>selenium-java</artifactId>
+      <version>${selenium.version}</version>
+    </dependency>
 
-	</dependencies>
+    <!-- ── Test runner ──────────────────────────────────────────────── -->
+    <dependency>
+      <groupId>org.testng</groupId>
+      <artifactId>testng</artifactId>
+      <version>${testng.version}</version>
+      <scope>test</scope>
+    </dependency>
 
+    <!-- ── BDD (retained; not yet wired to tests) ───────────────────── -->
+    <dependency>
+      <groupId>io.cucumber</groupId>
+      <artifactId>cucumber-core</artifactId>
+      <version>${cucumber.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>io.cucumber</groupId>
+      <artifactId>cucumber-testng</artifactId>
+      <version>${cucumber.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>io.cucumber</groupId>
+      <artifactId>cucumber-java</artifactId>
+      <version>${cucumber.version}</version>
+    </dependency>
 
-	<profiles>
-		<profile>
-			<id>regression</id>
-			<activation>
-				<activeByDefault>true</activeByDefault>
-				<property>
-					<name>environment</name>
-					<value>regression</value>
-				</property>
-			</activation>
-			<properties>
-				<testNGSuite>regressionSuite.xml</testNGSuite>
-			</properties>
-		</profile>
-		<profile>
-			<id>full</id>
-			<activation>
-				<activeByDefault>true</activeByDefault>
-				<property>
-					<name>environment</name>
-					<value>full</value>
-				</property>
-			</activation>
-			<properties>
-				<testNGSuite>testng.xml</testNGSuite>
-			</properties>
-		</profile>
-	</profiles>
+    <!-- ── Data utilities ──────────────────────────────────────────── -->
+    <dependency>
+      <groupId>org.apache.poi</groupId>
+      <artifactId>poi-ooxml</artifactId>
+      <version>5.5.1</version>
+    </dependency>
+    <dependency>
+      <groupId>com.opencsv</groupId>
+      <artifactId>opencsv</artifactId>
+      <version>5.10</version>
+    </dependency>
+    <dependency>
+      <groupId>com.googlecode.json-simple</groupId>
+      <artifactId>json-simple</artifactId>
+      <version>1.1.1</version>
+    </dependency>
+    <!-- Replaces abandoned com.github.javafaker:javafaker -->
+    <dependency>
+      <groupId>net.datafaker</groupId>
+      <artifactId>datafaker</artifactId>
+      <version>2.4.3</version>
+    </dependency>
+  </dependencies>
+
+  <profiles>
+    <!-- mvn test -Pandroid  → runs androidTestSuite.xml -->
+    <profile>
+      <id>android</id>
+      <properties>
+        <testNGSuite>src/test/suites/androidTestSuite.xml</testNGSuite>
+      </properties>
+    </profile>
+
+    <!-- mvn test -Pios  → runs iosTestSuite.xml -->
+    <profile>
+      <id>ios</id>
+      <properties>
+        <testNGSuite>src/test/suites/iosTestSuite.xml</testNGSuite>
+      </properties>
+    </profile>
+
+    <!-- mvn test -Pregression  → runs regressionSuite.xml (TruDoc) -->
+    <profile>
+      <id>regression</id>
+      <properties>
+        <testNGSuite>src/test/suites/regressionSuite.xml</testNGSuite>
+      </properties>
+    </profile>
+  </profiles>
 </project>

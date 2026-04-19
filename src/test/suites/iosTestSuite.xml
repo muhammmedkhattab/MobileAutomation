@@ -1,0 +1,34 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="iOS UI Test Suite" verbose="1" parallel="false">
+
+  <test name="iOS — Login">
+    <classes>
+      <class name="tests.ios.IOSSauceDemoLoginTest"/>
+    </classes>
+  </test>
+
+  <test name="iOS — Products Catalogue">
+    <classes>
+      <class name="tests.ios.IOSSauceDemoProductsTest"/>
+    </classes>
+  </test>
+
+  <test name="iOS — Shopping Cart">
+    <classes>
+      <class name="tests.ios.IOSSauceDemoCartTest"/>
+    </classes>
+  </test>
+
+  <test name="iOS — Product Sorting">
+    <classes>
+      <class name="tests.ios.IOSSauceDemoSortTest"/>
+    </classes>
+  </test>
+
+  <test name="iOS — Checkout Flow">
+    <classes>
+      <class name="tests.ios.IOSSauceDemoCheckoutTest"/>
+    </classes>
+  </test>
+
+</suite>

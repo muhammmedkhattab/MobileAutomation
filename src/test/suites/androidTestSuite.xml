@@ -1,0 +1,34 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Android UI Test Suite" verbose="1" parallel="false">
+
+  <test name="Android — Login">
+    <classes>
+      <class name="tests.android.SauceDemoLoginTest"/>
+    </classes>
+  </test>
+
+  <test name="Android — Products Catalogue">
+    <classes>
+      <class name="tests.android.SauceDemoProductsTest"/>
+    </classes>
+  </test>
+
+  <test name="Android — Shopping Cart">
+    <classes>
+      <class name="tests.android.SauceDemoCartTest"/>
+    </classes>
+  </test>
+
+  <test name="Android — Product Sorting">
+    <classes>
+      <class name="tests.android.SauceDemoSortTest"/>
+    </classes>
+  </test>
+
+  <test name="Android — Checkout Flow">
+    <classes>
+      <class name="tests.android.SauceDemoCheckoutTest"/>
+    </classes>
+  </test>
+
+</suite>
