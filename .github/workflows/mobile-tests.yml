@@ -60,7 +60,7 @@ jobs:
 
       - name: Install Appium + UiAutomator2 driver
         run: |
-          npm install -g appium
+          npm install -g appium@next
           appium driver install uiautomator2
 
       - name: Run Android tests on emulator
